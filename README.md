@@ -44,7 +44,7 @@ El proyecto sigue una arquitectura modular que permite separar los roles y respo
 2. **Instalación de Dependencias**: Asegúrate de tener instaladas las librerías requeridas (por ejemplo, `mysql-connector-python` y `python-dotenv`). Puedes instalarlas utilizando:
 
 ```bash
-pip install mysql-connector-python python-dotenv
+pip install mysql-connector-python python-dotenv flask
 ```
 
 ## Uso
