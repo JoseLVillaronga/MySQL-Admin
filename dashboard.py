@@ -25,7 +25,7 @@ def get_db_connection():
 def index():
     # Obtener el intervalo deseado a través de parámetros de URL; por defecto 1h
     interval = request.args.get('interval', '1h')
-    zona_horaria = pytz.timezone('America/Buenos_Aires')
+    zona_horaria = pytz.timezone(os.getenv('TZ'))
     now = datetime.datetime.now(zona_horaria)
     
     # Determinar el tiempo de inicio en función del intervalo
