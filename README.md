@@ -32,7 +32,39 @@ El proyecto sigue una arquitectura modular que permite separar los roles y respo
 
 ### Módulos en Fase de Prueba
 
-- **`sync_mysql_remote.py`**: Actualmente en fase de prueba, se encarga de sincronizar bases de datos MySQL de un entorno remoto al local. Este módulo es utilizado para validar la replicación y sirve como base para migraciones iniciales o pruebas de concepto.
+- **`sync_mysql_remote.py`**: Actualmente en fase de prueba, implementa una sincronización incremental inteligente entre bases de datos MySQL remotas y locales. Sus características principales incluyen:
+
+  - **Análisis Inteligente de Estructura**: 
+    * Analiza la estructura de las tablas en la base local
+    * Identifica campos de referencia (autoincrement o datetime con NOW)
+    * Detecta dependencias entre tablas (claves foráneas)
+    * Ordena las tablas para mantener la integridad referencial
+
+  - **Sincronización Incremental**:
+    * Solo sincroniza registros nuevos basándose en campos de referencia
+    * Minimiza el impacto en la base remota
+    * Optimiza el rendimiento para bases de grandes dimensiones
+
+  - **Monitoreo y Logging**:
+    * Registra resultados de sincronización en MongoDB
+    * Genera reportes detallados de operaciones
+    * Mantiene historial de sincronizaciones
+
+  - **Manejo de Errores**:
+    * Gestión robusta de errores por tabla
+    * Registro detallado de fallos
+    * Continuación del proceso incluso si algunas tablas fallan
+
+  - **Consideraciones de Rendimiento**:
+    * Diseñado para ejecutarse periódicamente (por ejemplo, cada minuto)
+    * Optimizado para minimizar la carga en la base remota
+    * Procesamiento eficiente de grandes volúmenes de datos
+
+  > **Nota**: Este módulo asume que:
+  > - Las bases de datos existen tanto en local como en remoto
+  > - La estructura de tablas es idéntica en ambos lados
+  > - Las bases remotas son las "fuente de verdad" (producción)
+  > - Las bases locales son las que se sincronizan
 
 ## Configuración
 
