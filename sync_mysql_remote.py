@@ -115,12 +115,16 @@ class TableAnalyzer:
     def find_reference_field(self, columns: List[Dict[str, Any]]) -> Optional[str]:
         """Busca campo de referencia (autoincrement o datetime con NOW)"""
         for col in columns:
+            col_type = col.get('Type', '')
+            if isinstance(col_type, bytes):
+                col_type = col_type.decode('utf-8')
+            
             # Buscar campo autoincrement
-            if col.get('Extra') == 'auto_increment' and col.get('Type', '').startswith('int'):
+            if col.get('Extra') == 'auto_increment' and col_type.startswith('int'):
                 return col['Field']
             
             # Buscar campo datetime con NOW
-            if col.get('Type', '').startswith('datetime') and col.get('Default') == 'CURRENT_TIMESTAMP':
+            if col_type.startswith('datetime') and col.get('Default') == 'CURRENT_TIMESTAMP':
                 return col['Field']
         
         return None
