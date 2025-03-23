@@ -1,5 +1,6 @@
 import os
 import datetime
+import pytz
 from flask import Flask, request
 from pymongo import MongoClient
 import plotly.graph_objs as go
@@ -24,7 +25,8 @@ def get_db_connection():
 def index():
     # Obtener el intervalo deseado a través de parámetros de URL; por defecto 1h
     interval = request.args.get('interval', '1h')
-    now = datetime.datetime.now(datetime.timezone.utc)
+    zona_horaria = pytz.timezone('America/Buenos_Aires')
+    now = datetime.datetime.now(zona_horaria)
     
     # Determinar el tiempo de inicio en función del intervalo
     if interval == '1h':
@@ -49,7 +51,7 @@ def index():
         return f"No se encontraron métricas para el intervalo {interval}" 
 
     # Extraer datos
-    times = [datetime.datetime.fromtimestamp(doc['timestamp'], datetime.timezone.utc) for doc in data]
+    times = [datetime.datetime.fromtimestamp(doc['timestamp'], zona_horaria) for doc in data]
     cpu = [doc.get("mysql_cpu_usage_percent", 0) for doc in data]
     memory = [doc.get("mysql_memory_used_bytes", 0) for doc in data]
     # Utilizar el campo 'Questions' para calcular las transacciones
