@@ -45,32 +45,42 @@ El proyecto sigue una arquitectura modular que permite separar los roles y respo
     * Minimiza el impacto en la base remota
     * Optimiza el rendimiento para bases de grandes dimensiones
 
+  - **Sincronización de Cambios (UPDATE)**:
+    * Utiliza un registro de cambios (changelog) en MongoDB
+    * Procesa los cambios de los últimos 2 minutos para evitar pérdidas
+    * Aplica las actualizaciones a los registros existentes en la base local
+    * Identifica automáticamente la columna ID para actualizar los registros correctos
+
   - **Monitoreo y Logging**:
     * Registra resultados de sincronización en MongoDB
-    * Genera reportes detallados de operaciones
+    * Genera reportes detallados de operaciones (inserciones y actualizaciones)
     * Mantiene historial de sincronizaciones
 
   - **Manejo de Errores**:
-    * Gestión robusta de errores por tabla
+    * Gestión robusta de errores por tabla y por registro
     * Registro detallado de fallos
-    * Continuación del proceso incluso si algunas tablas fallan
+    * Continuación del proceso incluso si algunas tablas o registros fallan
 
   - **Consideraciones de Rendimiento**:
     * Diseñado para ejecutarse periódicamente (por ejemplo, cada minuto)
     * Optimizado para minimizar la carga en la base remota
     * Procesamiento eficiente de grandes volúmenes de datos
+    * Ventana de tiempo ajustable para la sincronización de cambios
 
   > **Nota**: Este módulo asume que:
   > - Las bases de datos existen tanto en local como en remoto
   > - La estructura de tablas es idéntica en ambos lados
   > - Las bases remotas son las "fuente de verdad" (producción)
   > - Las bases locales son las que se sincronizan
+  > - Existe un registro de cambios en MongoDB (`teccam_mongo.changelog`)
 
 ## Configuración
 
 1. **Variables de Entorno**: El proyecto utiliza un archivo `.env` para gestionar parámetros críticos de conexión, tales como:
    - Para conexiones remotas: `DBR_HOST`, `DBR_PORT`, `DBR_USERNAME`, `DBR_PASSWORD`.
    - Para conexiones locales: `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`.
+   - Para MongoDB local: `MONGO_HOST`, `MONGO_USERNAME`, `MONGO_PASSWORD`.
+   - Para MongoDB remoto: `MONGOR_HOST`, `MONGOR_USERNAME`, `MONGOR_PASSWORD`.
    - Listado de bases de datos a sincronizar: `MYSQL_DATABASES` (una lista separada por comas).
 
 2. **Instalación de Dependencias**: Asegúrate de tener instaladas las librerías requeridas (por ejemplo, `mysql-connector-python` y `python-dotenv`). Puedes instalarlas utilizando:
@@ -112,9 +122,10 @@ Esta sección está destinada exclusivamente para el uso interno de la IA y como
 
 ## Próximos Pasos
 
-- Revisión de los parámetros de sincronización y migración.
-- Experimentación controlada para desacoplar el motor MySQL local utilizando la base consolidada en MongoDB.
-- Incrementar pruebas y validaciones en el módulo `sync_mysql_remote.py` antes de avanzar a producción.
+- Implementar sincronización de operaciones DELETE usando el changelog
+- Ajuste fino de los parámetros de sincronización y migración
+- Experimentación controlada para desacoplar el motor MySQL local utilizando la base consolidada en MongoDB
+- Incrementar pruebas y validaciones en el módulo `sync_mysql_remote.py` antes de avanzar a producción
 
 ---
 

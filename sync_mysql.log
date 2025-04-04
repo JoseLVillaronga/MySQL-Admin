@@ -1,0 +1,198 @@
+2025-03-23 19:41:43,306 - INFO - Iniciando sincronización de base de datos: cdr
+2025-03-23 19:41:43,360 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 19:41:43,386 - INFO - Conexión cerrada
+2025-03-23 19:41:43,386 - ERROR - Error procesando base de datos cdr: startswith first arg must be bytes or a tuple of bytes, not str
+2025-03-23 19:41:43,387 - INFO - Iniciando sincronización de base de datos: auth
+2025-03-23 19:41:43,439 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 19:41:43,441 - INFO - Conexión cerrada
+2025-03-23 19:41:43,442 - ERROR - Error procesando base de datos auth: startswith first arg must be bytes or a tuple of bytes, not str
+2025-03-23 19:41:43,444 - INFO - Iniciando sincronización de base de datos: alumni
+2025-03-23 19:41:43,496 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 19:41:43,499 - INFO - Conexión cerrada
+2025-03-23 19:41:43,499 - ERROR - Error procesando base de datos alumni: startswith first arg must be bytes or a tuple of bytes, not str
+2025-03-23 20:22:21,383 - INFO - Iniciando sincronización de base de datos: cdr
+2025-03-23 20:22:21,438 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:22:21,682 - INFO - Conexión cerrada
+2025-03-23 20:22:21,920 - INFO - Conexión exitosa a 192.168.101.18
+2025-03-23 20:22:21,979 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:22:21,979 - INFO - Iniciando sincronización de tabla: aria
+2025-03-23 20:22:22,003 - INFO - Iniciando sincronización de tabla: articulos_precio
+2025-03-23 20:22:22,022 - INFO - Iniciando sincronización de tabla: bitacora
+2025-03-23 20:22:22,042 - INFO - Iniciando sincronización de tabla: cable_modem_docsis
+2025-03-23 20:22:22,065 - INFO - Iniciando sincronización de tabla: cable_modem_ont2
+2025-03-23 20:22:22,084 - INFO - Iniciando sincronización de tabla: categoria
+2025-03-23 20:22:22,104 - INFO - Iniciando sincronización de tabla: centro_costos
+2025-03-23 20:22:22,122 - INFO - Iniciando sincronización de tabla: cm_consulta1
+2025-03-23 20:22:22,140 - INFO - Iniciando sincronización de tabla: cm_etiquetas_d
+2025-03-23 20:22:22,160 - INFO - Iniciando sincronización de tabla: cm_etiquetas_d_aguero
+2025-03-23 20:22:22,180 - INFO - Iniciando sincronización de tabla: cm_etiquetas_s
+2025-03-23 20:22:22,199 - INFO - Iniciando sincronización de tabla: cm_etiquetas_s_aguero
+2025-03-23 20:22:22,218 - INFO - Iniciando sincronización de tabla: codigo_clientes
+2025-03-23 20:22:22,238 - INFO - Iniciando sincronización de tabla: codigo_estado
+2025-03-23 20:22:22,258 - INFO - Iniciando sincronización de tabla: codigo_marca
+2025-03-23 20:22:22,278 - INFO - Iniciando sincronización de tabla: codigo_material
+2025-03-23 20:22:22,298 - INFO - Iniciando sincronización de tabla: codigo_modelo
+2025-03-23 20:22:22,318 - INFO - Iniciando sincronización de tabla: codigo_origen
+2025-03-23 20:22:22,338 - INFO - Iniciando sincronización de tabla: codigo_unegocio
+2025-03-23 20:22:22,359 - INFO - Iniciando sincronización de tabla: compras_eval_valores
+2025-03-23 20:22:22,378 - INFO - Iniciando sincronización de tabla: compras_seguimiento
+2025-03-23 20:22:22,404 - INFO - Iniciando sincronización de tabla: compras_sugerencias
+2025-03-23 20:22:22,423 - INFO - Iniciando sincronización de tabla: control_calidad
+2025-03-23 20:22:22,443 - INFO - Iniciando sincronización de tabla: docsis
+2025-03-23 20:22:22,464 - INFO - Iniciando sincronización de tabla: empresas
+2025-03-23 20:22:22,485 - INFO - Iniciando sincronización de tabla: evaluacion_anual_proveedores
+2025-03-23 20:22:22,506 - INFO - Iniciando sincronización de tabla: evaluacion_proveedores
+2025-03-23 20:22:22,526 - INFO - Iniciando sincronización de tabla: falla_cc
+2025-03-23 20:22:22,550 - INFO - Iniciando sincronización de tabla: fallas
+2025-03-23 20:22:22,570 - INFO - Iniciando sincronización de tabla: fallas_cisco
+2025-03-23 20:22:22,590 - INFO - Iniciando sincronización de tabla: federada_prueba
+2025-03-23 20:22:22,611 - INFO - Iniciando sincronización de tabla: federada_resultados_docsis
+2025-03-23 20:22:22,636 - INFO - Iniciando sincronización de tabla: formulario_claro
+2025-03-23 20:22:22,657 - INFO - Iniciando sincronización de tabla: fuentes
+2025-03-23 20:22:22,678 - INFO - Iniciando sincronización de tabla: grupos
+2025-03-23 20:22:22,698 - INFO - Iniciando sincronización de tabla: hwGponDeviceOntControlLastDownCause
+2025-03-23 20:22:22,716 - INFO - Iniciando sincronización de tabla: lote_compras_seguimiento
+2025-03-23 20:22:22,743 - INFO - Iniciando sincronización de tabla: lote_compras_sugerencias
+2025-03-23 20:22:22,763 - INFO - Iniciando sincronización de tabla: lote_orden_compra
+2025-03-23 20:22:22,784 - INFO - Iniciando sincronización de tabla: lote_venta
+2025-03-23 20:22:22,804 - INFO - Iniciando sincronización de tabla: marca
+2025-03-23 20:22:22,825 - INFO - Iniciando sincronización de tabla: modelo
+2025-03-23 20:22:22,844 - INFO - Iniciando sincronización de tabla: nico_claro
+2025-03-23 20:22:22,864 - INFO - Iniciando sincronización de tabla: nivel_aceptacion
+2025-03-23 20:22:22,884 - INFO - Iniciando sincronización de tabla: nivel_inspeccion
+2025-03-23 20:22:22,903 - INFO - Iniciando sincronización de tabla: notificaciones
+2025-03-23 20:22:22,924 - INFO - Iniciando sincronización de tabla: ont_autofind
+2025-03-23 20:22:27,936 - INFO - Tabla ont_autofind sincronizada: 23085 filas insertadas
+2025-03-23 20:22:27,940 - INFO - Iniciando sincronización de tabla: ont_lista
+2025-03-23 20:24:29,024 - INFO - Tabla ont_lista sincronizada: 539019 filas insertadas
+2025-03-23 20:24:29,213 - INFO - Iniciando sincronización de tabla: ont_lista_historico
+2025-03-23 20:24:29,291 - INFO - Tabla ont_lista_historico sincronizada: 1 filas insertadas
+2025-03-23 20:24:29,291 - INFO - Iniciando sincronización de tabla: orden_compra
+2025-03-23 20:24:29,329 - INFO - Iniciando sincronización de tabla: proforma
+2025-03-23 20:24:29,375 - INFO - Iniciando sincronización de tabla: ref_telefonica_peru
+2025-03-23 20:24:29,414 - INFO - Iniciando sincronización de tabla: referencia_prod_equipos
+2025-03-23 20:24:29,458 - INFO - Iniciando sincronización de tabla: remito_salida_factura
+2025-03-23 20:24:29,491 - INFO - Iniciando sincronización de tabla: remito_salida_repuesto
+2025-03-23 20:24:29,524 - INFO - Iniciando sincronización de tabla: remito_salida_tango
+2025-03-23 20:24:29,559 - INFO - Iniciando sincronización de tabla: rep_temp_cm
+2025-03-23 20:24:29,585 - INFO - Iniciando sincronización de tabla: repu_categoria
+2025-03-23 20:24:29,615 - INFO - Iniciando sincronización de tabla: repu_comp_pro
+2025-03-23 20:24:29,646 - INFO - Iniciando sincronización de tabla: repu_history_comp
+2025-03-23 20:24:29,679 - INFO - Iniciando sincronización de tabla: repu_history_comp_usu
+2025-03-23 20:24:29,717 - INFO - Iniciando sincronización de tabla: repu_proveedores
+2025-03-23 20:24:29,751 - INFO - Iniciando sincronización de tabla: sgc_ac_estado
+2025-03-23 20:24:29,795 - INFO - Iniciando sincronización de tabla: sgc_ac_resultados
+2025-03-23 20:24:29,839 - INFO - Iniciando sincronización de tabla: sgc_accion_correctiva
+2025-03-23 20:24:29,874 - INFO - Iniciando sincronización de tabla: sgc_encuesta
+2025-03-23 20:24:29,905 - INFO - Iniciando sincronización de tabla: sgc_encuesta_lote
+2025-03-23 20:24:29,932 - INFO - Iniciando sincronización de tabla: sgc_encuesta_preguntas
+2025-03-23 20:24:29,968 - INFO - Iniciando sincronización de tabla: sgc_encuesta_values
+2025-03-23 20:24:29,995 - INFO - Iniciando sincronización de tabla: sgc_piv_ac_tck
+2025-03-23 20:24:30,037 - INFO - Iniciando sincronización de tabla: sgc_verificacion_eficacia
+2025-03-23 20:24:30,067 - INFO - Iniciando sincronización de tabla: stock_caja
+2025-03-23 20:24:30,107 - INFO - Iniciando sincronización de tabla: stock_control_cambios
+2025-03-23 20:24:30,142 - INFO - Iniciando sincronización de tabla: stock_state
+2025-03-23 20:24:30,177 - INFO - Iniciando sincronización de tabla: sucursal
+2025-03-23 20:24:30,221 - INFO - Iniciando sincronización de tabla: tango_id
+2025-03-23 20:24:30,279 - INFO - Iniciando sincronización de tabla: tango_ref1
+2025-03-23 20:24:30,330 - INFO - Iniciando sincronización de tabla: tango_ref_precios
+2025-03-23 20:24:30,376 - INFO - Iniciando sincronización de tabla: tarea
+2025-03-23 20:24:30,411 - INFO - Iniciando sincronización de tabla: tareas_noti
+2025-03-23 20:24:30,451 - INFO - Iniciando sincronización de tabla: temp
+2025-03-23 20:24:30,482 - INFO - Iniciando sincronización de tabla: temp4
+2025-03-23 20:24:30,552 - ERROR - Error sincronizando tabla temp4: 1146 (42S02): Table 'cdr.temp4' doesn't exist
+2025-03-23 20:24:30,552 - ERROR - Error en tabla temp4: 1146 (42S02): Table 'cdr.temp4' doesn't exist
+2025-03-23 20:24:30,552 - INFO - Iniciando sincronización de tabla: temp_busca_item
+2025-03-23 20:24:30,618 - INFO - Iniciando sincronización de tabla: temp_tango_id
+2025-03-23 20:24:30,678 - INFO - Iniciando sincronización de tabla: temporal
+2025-03-23 20:24:30,741 - INFO - Iniciando sincronización de tabla: temporal2
+2025-03-23 20:24:30,787 - INFO - Iniciando sincronización de tabla: temporal_claro
+2025-03-23 20:24:30,827 - INFO - Iniciando sincronización de tabla: temporal_claro2
+2025-03-23 20:24:30,859 - INFO - Iniciando sincronización de tabla: temporal_telecom
+2025-03-23 20:24:30,894 - INFO - Iniciando sincronización de tabla: tickets
+2025-03-23 20:24:30,932 - INFO - Iniciando sincronización de tabla: tickets_categoria
+2025-03-23 20:24:30,962 - INFO - Iniciando sincronización de tabla: tipo_cc
+2025-03-23 20:24:31,008 - INFO - Iniciando sincronización de tabla: venta
+2025-03-23 20:24:31,063 - INFO - Iniciando sincronización de tabla: web_art
+2025-03-23 20:24:31,102 - INFO - Iniciando sincronización de tabla: web_art_des
+2025-03-23 20:24:31,134 - INFO - Iniciando sincronización de tabla: wifi_2
+2025-03-23 20:24:31,160 - INFO - Iniciando sincronización de tabla: wifi_5
+2025-03-23 20:24:31,197 - INFO - Iniciando sincronización de tabla: articulos
+2025-03-23 20:24:31,231 - INFO - Iniciando sincronización de tabla: cable_modem_ont
+2025-03-23 20:24:31,271 - INFO - Iniciando sincronización de tabla: cable_modem_ont_registros
+2025-03-23 20:24:31,319 - INFO - Iniciando sincronización de tabla: lote_stock
+2025-03-23 20:24:31,358 - INFO - Iniciando sincronización de tabla: remito_salida
+2025-03-23 20:24:31,400 - INFO - Iniciando sincronización de tabla: remito_salida_lote
+2025-03-23 20:24:31,437 - INFO - Iniciando sincronización de tabla: reparacion
+2025-03-23 20:24:31,475 - INFO - Iniciando sincronización de tabla: repu_componentes
+2025-03-23 20:24:31,514 - INFO - Iniciando sincronización de tabla: repu_componentes_usuario
+2025-03-23 20:24:31,565 - INFO - Iniciando sincronización de tabla: repu_componentes_usuario_pos
+2025-03-23 20:24:31,601 - INFO - Iniciando sincronización de tabla: stock
+2025-03-23 20:24:31,697 - INFO - 
+        Reporte de Sincronización - cdr
+        ======================================
+        Tablas procesadas: 108
+        Tablas exitosas: 107
+        Tablas fallidas: 1
+        Total de filas procesadas: 562105
+        Total de filas insertadas: 562105
+        Errores encontrados: 0
+        
+2025-03-23 20:24:31,698 - INFO - Conexión cerrada
+2025-03-23 20:24:31,698 - INFO - Conexión cerrada
+2025-03-23 20:24:31,704 - INFO - Iniciando sincronización de base de datos: auth
+2025-03-23 20:24:31,760 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:24:31,775 - INFO - Conexión cerrada
+2025-03-23 20:24:32,161 - INFO - Conexión exitosa a 192.168.101.18
+2025-03-23 20:24:32,217 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:24:32,218 - INFO - Iniciando sincronización de tabla: grupos
+2025-03-23 20:24:32,246 - INFO - Iniciando sincronización de tabla: clientes
+2025-03-23 20:24:32,268 - INFO - Iniciando sincronización de tabla: sesion
+2025-03-23 20:24:32,315 - INFO - 
+        Reporte de Sincronización - auth
+        ======================================
+        Tablas procesadas: 3
+        Tablas exitosas: 3
+        Tablas fallidas: 0
+        Total de filas procesadas: 0
+        Total de filas insertadas: 0
+        Errores encontrados: 0
+        
+2025-03-23 20:24:32,316 - INFO - Conexión cerrada
+2025-03-23 20:24:32,316 - INFO - Conexión cerrada
+2025-03-23 20:24:32,322 - INFO - Iniciando sincronización de base de datos: alumni
+2025-03-23 20:24:32,379 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:24:32,419 - INFO - Conexión cerrada
+2025-03-23 20:24:32,762 - INFO - Conexión exitosa a 192.168.101.18
+2025-03-23 20:24:32,820 - INFO - Conexión exitosa a 127.0.0.1
+2025-03-23 20:24:32,820 - INFO - Iniciando sincronización de tabla: calificacion_value
+2025-03-23 20:24:32,847 - INFO - Iniciando sincronización de tabla: clientes
+2025-03-23 20:24:32,878 - INFO - Iniciando sincronización de tabla: curso_status
+2025-03-23 20:24:32,914 - INFO - Iniciando sincronización de tabla: departamento
+2025-03-23 20:24:32,951 - INFO - Iniciando sincronización de tabla: empresas
+2025-03-23 20:24:32,983 - INFO - Iniciando sincronización de tabla: encuesta
+2025-03-23 20:24:33,020 - INFO - Iniciando sincronización de tabla: encuesta_lote
+2025-03-23 20:24:33,044 - INFO - Iniciando sincronización de tabla: encuesta_preguntas
+2025-03-23 20:24:33,074 - INFO - Iniciando sincronización de tabla: encuesta_values
+2025-03-23 20:24:33,114 - INFO - Iniciando sincronización de tabla: grupos
+2025-03-23 20:24:33,133 - INFO - Iniciando sincronización de tabla: inscripcion
+2025-03-23 20:24:33,158 - INFO - Iniciando sincronización de tabla: mensaje
+2025-03-23 20:24:33,193 - INFO - Iniciando sincronización de tabla: mensaje_tipo
+2025-03-23 20:24:33,242 - INFO - Iniciando sincronización de tabla: notificacion
+2025-03-23 20:24:33,275 - INFO - Iniciando sincronización de tabla: notificacion_tipo
+2025-03-23 20:24:33,314 - INFO - Iniciando sincronización de tabla: visitas
+2025-03-23 20:24:33,345 - INFO - Iniciando sincronización de tabla: calificacion
+2025-03-23 20:24:33,379 - INFO - Iniciando sincronización de tabla: contenidos
+2025-03-23 20:24:33,416 - INFO - Iniciando sincronización de tabla: cursos
+2025-03-23 20:24:33,472 - INFO - 
+        Reporte de Sincronización - alumni
+        ======================================
+        Tablas procesadas: 19
+        Tablas exitosas: 19
+        Tablas fallidas: 0
+        Total de filas procesadas: 0
+        Total de filas insertadas: 0
+        Errores encontrados: 0
+        
+2025-03-23 20:24:33,473 - INFO - Conexión cerrada
+2025-03-23 20:24:33,473 - INFO - Conexión cerrada

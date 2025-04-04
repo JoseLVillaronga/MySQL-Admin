@@ -4,7 +4,7 @@ import logging
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional, Tuple
 import pymongo
 from pymongo import MongoClient
@@ -118,13 +118,18 @@ class TableAnalyzer:
             col_type = col.get('Type', '')
             if isinstance(col_type, bytes):
                 col_type = col_type.decode('utf-8')
+            col_type = col_type.lower()
             
             # Buscar campo autoincrement
-            if col.get('Extra') == 'auto_increment' and col_type.startswith('int'):
+            if col.get('Extra') == 'auto_increment' and 'int' in col_type:
                 return col['Field']
             
-            # Buscar campo datetime con NOW
-            if col_type.startswith('datetime') and col.get('Default') == 'CURRENT_TIMESTAMP':
+            # Buscar campo datetime o timestamp con DEFAULT CURRENT_TIMESTAMP
+            default_val = col.get('Default', '')
+            if isinstance(default_val, bytes):
+                default_val = default_val.decode('utf-8')
+            
+            if ('datetime' in col_type or 'timestamp' in col_type) and default_val and 'current_timestamp' in str(default_val).lower():
                 return col['Field']
         
         return None
@@ -222,6 +227,112 @@ class TableSync:
             logger.error(f"Error sincronizando tabla {self.table}: {e}")
             raise
 
+class ChangelogSynchronizer:
+    def __init__(self, database: str):
+        self.database = database
+        # Conectar al MongoDB remoto que contiene el changelog
+        self.client = MongoClient(
+            host=os.getenv("MONGOR_HOST", "localhost"),
+            username=os.getenv("MONGOR_USERNAME"),
+            password=os.getenv("MONGOR_PASSWORD")
+        )
+        self.db = self.client.teccam_mongo
+        self.changelog = self.db.changelog
+        self.stats = {
+            'updates_processed': 0,
+            'updates_applied': 0,
+            'errors': 0
+        }
+        
+    def get_recent_changes(self, minutes: int = 2) -> List[Dict[str, Any]]:
+        """Obtiene cambios recientes del changelog (últimos X minutos)"""
+        cutoff_time = datetime.now() - timedelta(minutes=minutes)
+        # Convertir a string de fecha para comparación
+        cutoff_str = cutoff_time.strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Filtrar por base de datos y tiempo
+        query = {
+            "base_datos": self.database,
+            "fecha_operacion": {"$gte": cutoff_str}
+        }
+        
+        # Ordenar por fecha ascendente para procesar en orden cronológico
+        changes = list(self.changelog.find(query).sort("fecha_operacion", 1))
+        
+        logger.info(f"Encontrados {len(changes)} cambios recientes en {self.database}")
+        return changes
+    
+    def apply_changes_to_local(self, changes: List[Dict[str, Any]], local_conn: MySQLConnection):
+        """Aplica los cambios del changelog a la base de datos local"""
+        for change in changes:
+            try:
+                operation = change.get("operacion")
+                table = change.get("tabla")
+                record_id = change.get("id_registro")
+                
+                if not all([operation, table, record_id]):
+                    logger.warning(f"Registro de cambio incompleto: {change}")
+                    continue
+                
+                self.stats['updates_processed'] += 1
+                
+                if operation == "UPDATE" and "estado_actual" in change:
+                    self._apply_update(local_conn, table, record_id, change["estado_actual"])
+                    
+                # También podríamos manejar DELETE en el futuro si es necesario
+                
+            except Exception as e:
+                logger.error(f"Error al aplicar cambio {change.get('_id')}: {e}")
+                self.stats['errors'] += 1
+    
+    def _apply_update(self, conn: MySQLConnection, table: str, record_id: Any, current_state: Dict[str, Any]):
+        """Aplica una actualización a un registro existente"""
+        try:
+            # Obtener todas las columnas del estado actual
+            columns = []
+            values = []
+            
+            # Filtramos los campos que no son parte de la tabla (como _id de MongoDB)
+            for key, value in current_state.items():
+                if not key.startswith('_'):
+                    columns.append(key)
+                    values.append(value)
+            
+            if not columns:
+                logger.warning(f"No hay columnas para actualizar en la tabla {table}, registro {record_id}")
+                return
+            
+            # Construir query de actualización
+            set_clause = ", ".join([f"`{col}`=%s" for col in columns])
+            
+            # Identificar columna ID basada en el patrón común (tabla_id)
+            id_column = None
+            for col in columns:
+                if col.endswith('_id') and current_state.get(col) == record_id:
+                    id_column = col
+                    break
+            
+            if not id_column:
+                # Si no hay patrón claro, asumimos que la tabla tiene una columna primary key estándar
+                id_column = f"{table}_id"
+            
+            query = f"UPDATE `{table}` SET {set_clause} WHERE `{id_column}` = %s"
+            
+            # Agregar el valor del ID al final para el WHERE
+            values.append(record_id)
+            
+            # Ejecutar la actualización
+            conn.cursor.execute(query, values)
+            conn.connection.commit()
+            
+            self.stats['updates_applied'] += 1
+            logger.info(f"Actualizado registro {record_id} en tabla {table}")
+            
+        except Error as e:
+            logger.error(f"Error actualizando registro {record_id} en tabla {table}: {e}")
+            self.stats['errors'] += 1
+            # No hacemos rollback, continuamos con los siguientes cambios
+
 class DatabaseSync:
     def __init__(self, database: str):
         self.database = database
@@ -234,6 +345,8 @@ class DatabaseSync:
             'tables_failed': 0,
             'total_rows_processed': 0,
             'total_rows_inserted': 0,
+            'total_updates_processed': 0,
+            'total_updates_applied': 0,
             'errors': 0
         }
 
@@ -251,6 +364,7 @@ class DatabaseSync:
             with MySQLConnection(self.remote_config, self.database) as remote_conn, \
                  MySQLConnection(self.local_config, self.database) as local_conn:
                 
+                # Primero sincronizar inserciones nuevas
                 for table_info in tables_info:
                     try:
                         table_sync = TableSync(remote_conn, local_conn, table_info, self.mongo_logger)
@@ -266,6 +380,24 @@ class DatabaseSync:
                         self.sync_stats['tables_failed'] += 1
                     finally:
                         self.sync_stats['tables_processed'] += 1
+                        
+                # Ahora procesar actualizaciones desde el changelog de MongoDB
+                try:
+                    changelog_sync = ChangelogSynchronizer(self.database)
+                    recent_changes = changelog_sync.get_recent_changes()
+                    
+                    if recent_changes:
+                        changelog_sync.apply_changes_to_local(recent_changes, local_conn)
+                        
+                        # Actualizar estadísticas
+                        self.sync_stats['total_updates_processed'] += changelog_sync.stats['updates_processed']
+                        self.sync_stats['total_updates_applied'] += changelog_sync.stats['updates_applied']
+                        self.sync_stats['errors'] += changelog_sync.stats['errors']
+                        
+                        logger.info(f"Aplicados {changelog_sync.stats['updates_applied']} cambios de {changelog_sync.stats['updates_processed']} del changelog")
+                except Exception as e:
+                    logger.error(f"Error procesando changelog para {self.database}: {e}")
+                    self.sync_stats['errors'] += 1
 
                 # Registrar resultados en MongoDB
                 self.mongo_logger.log_sync_result(self.database, self.sync_stats)
@@ -285,6 +417,8 @@ class DatabaseSync:
         Tablas fallidas: {self.sync_stats['tables_failed']}
         Total de filas procesadas: {self.sync_stats['total_rows_processed']}
         Total de filas insertadas: {self.sync_stats['total_rows_inserted']}
+        Total de cambios procesados: {self.sync_stats['total_updates_processed']}
+        Total de cambios aplicados: {self.sync_stats['total_updates_applied']}
         Errores encontrados: {self.sync_stats['errors']}
         """
         logger.info(report)
