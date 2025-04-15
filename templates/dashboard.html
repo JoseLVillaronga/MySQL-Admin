@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard MySQL Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 Dark Theme CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/bootstrap-dark.min.css" rel="stylesheet">
+    <style>
+        body { background: #181a1b; color: #f1f3f4; }
+        .container { margin-top: 2rem; }
+        .card { background: #23272b; color: #f1f3f4; box-shadow: 0 2px 8px rgba(0,0,0,0.25); border: none; }
+        .footer { margin-top: 2rem; color: #aaa; font-size: 0.9em; }
+        .interval-btn.active, .interval-btn:focus { font-weight: bold; background: #0d6efd; color: #fff !important; border-color: #0d6efd; }
+        .btn-outline-primary { color: #b8d1ff; border-color: #375a7f; }
+        .btn-outline-primary:hover { background: #0d6efd; color: #fff !important; }
+        .btn-link { color: #b8d1ff; }
+        .alert-warning { background: #33362a; color: #ffe082; border: none; }
+        a { color: #90caf9; }
+        a:hover { color: #64b5f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 text-center my-3">Dashboard MySQL Monitor</h1>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <div class="btn-group" role="group" aria-label="Intervalos">
+                    <a href="/?interval=1h" class="btn btn-outline-primary interval-btn {% if interval == '1h' %}active{% endif %}">Última hora</a>
+                    <a href="/?interval=6h" class="btn btn-outline-primary interval-btn {% if interval == '6h' %}active{% endif %}">Últimas 6 horas</a>
+                    <a href="/?interval=24h" class="btn btn-outline-primary interval-btn {% if interval == '24h' %}active{% endif %}">Último día</a>
+                    <a href="/?interval=30d" class="btn btn-outline-primary interval-btn {% if interval == '30d' %}active{% endif %}">Último mes</a>
+                </div>
+                <button onclick="location.reload()" class="btn btn-link ms-2">🔄 Refrescar</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {% if graph_div %}
+                            {{ graph_div|safe }}
+                        {% else %}
+                            <div class="alert alert-warning text-center">No se encontraron métricas para el intervalo seleccionado.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row footer">
+            <div class="col-12 text-center">
+                <hr>
+                <span>MySQL-Admin Dashboard &copy; 2025 | <a href="https://github.com/JoseLVillaronga/MySQL-Admin" target="_blank">Repositorio</a></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
